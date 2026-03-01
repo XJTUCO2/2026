@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>先进CO<sub>2</sub>热力循环与系统研究团队</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af', // 深蓝色主色调，体现专业性和可信度
+                        secondary: '#3b82f6', // 浅蓝色辅助色
+                        accent: '#f97316', // 橙色强调色，用于突出重要信息
+                        dark: '#0f172a', // 深色背景
+                        light: '#f8fafc' // 浅色背景
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .hover-scale {
+                @apply hover:scale-105 transition-all duration-300;
+            }
+            .card-shadow {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.8s ease-in-out;
+            }
+            .animate-slide-up {
+                animation: slideUp 0.8s ease-out;
+            }
+            .animate-slide-right {
+                animation: slideRight 0.8s ease-out;
+            }
+            .nav-link {
+                @apply relative text-gray-700 hover:text-primary transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+            }
+            .section-title {
+                @apply text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-8 relative after:absolute after:bottom-0 after:left-0 after:h-1 after:w-24 after:bg-accent;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-800 font-sans">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                    <i class="fa fa-flask text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-primary">先进CO<sub>2</sub>热力循环与系统研究团队</span>
+            </a>            
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link">首页</a>
+                <a href="#professor" class="nav-link">导师介绍</a>
+                <a href="#research" class="nav-link">研究方向</a>
+                <a href="#admission" class="nav-link">招生信息</a>
+                <a href="#contact" class="nav-link">联系我们</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">首页</a>
+                <a href="#professor" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">导师介绍</a>
+                <a href="#research" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">研究方向</a>
+                <a href="#admission" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100">招生信息</a>
+                <a href="#contact" class="text-gray-700 hover:text-primary py-2">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 头部区域 -->
+    <section id="home" class="relative pt-24 md:pt-0 h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="照片/背景.jpg" alt="科研实验室背景" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/30"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10">
+            <div class="max-w-3xl animate-slide-right">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white leading-tight text-shadow mb-6 whitespace-nowrap">
+                    先进CO<sub>2</sub>热力循环与系统研究团队
+                </h1>
+                <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mb-8 max-w-2xl whitespace-nowrap">
+                    能者势之成，动者力之生，热管理、储能、热泵都是我们的研究方向，欢迎加入！                    
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#research" class="px-8 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        探索研究方向
+                    </a>
+                    <a href="#contact" class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#professor" class="text-white/80 hover:text-white">
+                <i class="fa fa-angle-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 导师介绍 -->
+    <section id="professor" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="section-title inline-block">团队负责人</h2>               
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1 animate-slide-up">
+                    <h2 class="text-3xl font-bold text-gray-1000 mb-4">曹锋  教授</h2>
+                     <p class="text-gray-600 mb-4">
+                        西安交通大学能源与动力工程学院教授，党委书记，教育部长江学者特聘教授。
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        研究方向为跨临界CO<sub>2</sub>循环系统、交通载运装备热管理、高温热泵技术等。主编出版专著4部，参与编写专著8部，在国内外高水平期刊发表论文200余篇(SCI/EI)，获授权发明专利150余项，美国专利2项，登记软件著作权 10 余项。
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2">学术任职</h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa fa-graduation-cap text-primary mt-1 mr-3"></i>
+                                <span>联合国环境规划署技术与经济评估(TEAP)专家组-制冷、空调和热泵技术选择委员会(RTOC)委员</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-graduation-cap text-primary mt-1 mr-3"></i>
+                                <span>中国制冷学会车辆热管理工作委员会主任</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-graduation-cap text-primary mt-1 mr-3"></i>
+                                <span>中国制冷学会制冷机械设备专业委员会副主任委员</span>                            
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-graduation-cap text-primary mt-1 mr-3"></i>
+                                <span>中国制冷空调工业协会汽车热系统分会副会长</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-graduation-cap text-primary mt-1 mr-3"></i>
+                                <span>中国汽车工程学会热系统分会副主任委员</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2">获奖成果</h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa fa-trophy text-accent mt-1 mr-3"></i>
+                                <span>主持或参与国家重点研发计划、军科委基础加强项目、国家 863 计划、国家科技支撑计划、联合国多边基金、国家自然科学基金等科研项目40余项</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-trophy text-accent mt-1 mr-3"></i>
+                                <span>以第一完成人获国家科技进步二等奖1项、陕西省科学技术一等奖1项</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-trophy text-accent mt-1 mr-3"></i>
+                                <span>联合国授予“臭氧层保护认可荣誉证书”</span>
+                            </li>
+                        </ul>
+                    </div>                  
+                </div>
+                
+                <div class="order-1 md:order-2 flex justify-center animate-slide-up" style="animation-delay: 0.2s">
+                    <div class="relative">
+                        <img src="照片/老师/曹老师.jpg" alt="曹老师照片" class="rounded-xl shadow-2xl w-full sm:w-[250px] md:w-[400px] h-auto object-cover hover-scale">                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+    <section id="professor" class="py-0.5 bg-white">
+    <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="section-title inline-block">导师介绍</h2>               
+            </div>
+        </div>
+    </section>    
+        <section id="students" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">   
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">                           
+        
+                <!-- 老师卡片2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.2s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/殷老师.png" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">殷翔</h3>
+                                <p class="text-white/80">教授</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士生导师</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *西安交通大学教授，研究方向为跨临界CO<sub>2</sub>循环系统及交通载运装备热管理研究<br>
+                            *中国制冷学会车辆热管理工作委员会秘书长、中国制冷学报青年编委<br>
+                            *个人主页：gr.xjtu.edu.cn/en/web/xiangyin
+                        </p>                        
+                    </div>
+                </div>
+                               
+                <!-- 老师卡片3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.3s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/宋.jpg" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">宋昱龙</h3>
+                                <p class="text-white/80">副教授</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士生导师</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *西安交通大学副教授，长期从事高温热泵、热力电池技术、新型热系统及智能调控技术研究<br>
+                            *国际制冷学会专业委员会青年委员，入选人社部“博士后创新人才支持计划”<br>
+                            *个人主页：gr.xjtu.edu.cn/en/web/yulong.song
+                        </p>                       
+                    </div>
+                </div>
+
+                  <!-- 老师卡片1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.1s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/杨老师.jpg" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">杨旭</h3>
+                                <p class="text-white/80">教授</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士生导师</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *西安交通大学教授，主要研究方向为涡旋压缩机<br>
+                            *陕西省制冷学会理事，国家一流课程《容积式压缩机原理》负责人，获中国机械工业科学技术二等奖1项<br>
+                            *个人主页：gr.xjtu.edu.cn/web/yangzx
+                        </p>                        
+                    </div>
+                </div>
+                
+                <!-- 老师卡片4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/王老师.png" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">王文毅</h3>
+                                <p class="text-white/80">特聘研究员</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士生导师</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *主要研究方向为强化学习和智能控制<br>
+                            *个人主页：gr.xjtu.edu.cn/en/web/wenyii.wang
+                        </p>                       
+                    </div>
+                </div>
+                <!-- 老师卡片5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/崔老师.png" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">崔策</h3>
+                                <p class="text-white/80">助理教授</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士后</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *主要研究方向为储能系统<br>
+                            *个人主页：gr.xjtu.edu.cn/en/web/cui_xjtu
+                        </p>                       
+                    </div>
+                </div>
+                <!-- 老师卡片6 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="relative h-81 overflow-hidden">
+                        <img src="照片/老师/宗老师.jpg" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">宗硕</h3>
+                                <p class="text-white/80">助理教授</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>博士后</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            *主要研究方向为模块化汽车热管理系统<br>
+                            *个人主页：gr.xjtu.edu.cn/en/web/szong
+                        </p>                     
+                    </div>
+                </div>
+            </div>
+      <!-- 研究方向 -->
+    <section id="research" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="section-title inline-block">研究方向</h2>                
+            </div>            
+            <!-- 修改1：grid改为单栏（col-span-1），纵向排列五大卡片 -->
+            <div class="grid grid-cols-1 gap-10">
+                <!-- 研究方向1：交通载具热管理 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-slide-up" style="animation-delay: 0.1s">
+                    <!-- 修改2：新增图片占位区，采用左右分栏布局（移动端上下堆叠） -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                        <!-- 图片占位区 -->
+                        <div class="rounded-lg overflow-hidden">
+                            <!-- 替换为实际图片路径，保留hover缩放效果 -->
+                            <img src="照片/研究方向/交通载具热管理.png" alt="交通载具热管理研究" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <!-- 文字内容区 -->
+                        <div>
+                            <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                                <i class="fa fa-eye text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">交通运载及高功率装备先进CO<sub>2</sub>热管理系统</h3>
+                            <p class="text-gray-600 mb-6">
+                                专注于新能源汽车、客车、卡车、轨道车辆、特种车辆、航空航天等设备的热管理，针对AI相关的能源集群开发高效热管理系统。
+                            </p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">交通载具、低空飞行器、航空航天、大功率电池等设备的散热结构和热管理系统设计。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">针对数据中心和具身智能的热管理技术设计，结合CO<sub>2</sub>相变冷却技术，实现高效安全的冷却设计与余热回收再利用。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">CO<sub>2</sub>热管理系统的智能控制算法：基于MPC和LLM设计智能空调控制算法，高效热管理设计方案。</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-primary font-medium hover:text-primary/80 inline-flex items-center">
+                                了解更多 <i class="fa fa-long-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向2：超高温热泵系统 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-slide-up" style="animation-delay: 0.2s">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="照片/研究方向/超高温热泵系统.jpg" alt="超高温热泵系统" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div>
+                            <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                                <i class="fa fa-comments text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">先进CO<sub>2</sub>热力电池系统及装备</h3>
+                            <p class="text-gray-600 mb-6">
+                                研究跨(超)临界CO<sub>2</sub>热泵在热质储能和卡诺电池中的应用。
+                            </p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">融合高温储热的新型电力储能与灵活性改造系统：面向特高温储能与电网调峰需求，将CO<sub>2</sub>逆布雷顿循环与熔盐等高温储热技术结合，构建高效率、长时程、模块化的“卡诺电池（热力电池）”系统。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">工业流程低碳化的高温蒸汽与联供系统：面向工业领域的热能升级需求，突破传统热泵温区限制，重点开发适用于CO<sub>2</sub>逆朗肯循环系统，实现工业级高温蒸汽的高效供给，并协同输出冷量，形成“热 电 冷”联供能源站。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">工业集群化应用的零碳园区与综能系统：聚焦工业生产园区的零碳化评估，实现电、热、冷综合能源系统的协调匹配，以CO<sub>2</sub>热力循环系统为枢纽构建绿色低碳的多能互补系统。</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-primary font-medium hover:text-primary/80 inline-flex items-center">
+                                了解更多 <i class="fa fa-long-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 研究方向4：压缩机技术 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="照片/研究方向/压缩机技术.jpg" alt="压缩机技术研究" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div>
+                            <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                                <i class="fa fa-cog text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">跨临界CO<sub>2</sub>冷热系统及装备</h3>
+                            <p class="text-gray-600 mb-6">
+                                主攻CO<sub>2</sub>工质的冷热联供机组、冷藏冷冻集成设备，压缩机技术开发与前沿应用场景的匹配。
+                            </p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">新能源电动汽车热管理系统高效电动涡旋压缩机和无油涡旋压缩机开发：开展涡旋压缩机热力过程精细化仿真和多体动力学研究，定制化压缩机设计软件；同时针对电动涡旋压缩机高性能型线设计、能效优化、NVH、极端工况运行等进行仿真分析、实验测试分析开展研究。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">商用车/乘用车智慧集成供气平台开发：实现整车气源系统与用气系统（空气悬架、制动系统、制氧系统、座舱等）模块化、集成化和智能化，开展高度集成供气单元（无油空气压缩机）技术和智能控制研究，建有车载智慧供气在环模拟实验平台和空气悬架压缩机性能及全尺寸悬架测试平台。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">规模化应用的系统优化与集成创新：聚焦跨临界CO<sub>2</sub>热泵在生活热水、建筑供暖、商超冷链等领域的规模化应用。团队致力于循环构型创新、关键部件匹配与智能控制策略研发，推动系统能效与运行稳定性的持续提升，部分成果已进入商业化示范阶段。</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-primary font-medium hover:text-primary/80 inline-flex items-center">
+                                了解更多 <i class="fa fa-long-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究方向5：能源系统智能控制算法 -->
+             <!--   <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-slide-up" style="animation-delay: 0.5s">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="照片/研究方向/能源系统智能控制算法.jpg" alt="其他研究方向" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div>
+                            <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                                <i class="fa fa-bolt text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">其他研究方向</h3>
+                            <p class="text-gray-600 mb-6">
+                                等你前来探索。
+                            </p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">扎根西部</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">服务国家</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
+                                    <span class="text-gray-600">世界一流</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-primary font-medium hover:text-primary/80 inline-flex items-center">
+                                了解更多 <i class="fa fa-long-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    <!-- 招生和学生培养 -->
+    <section id="admission" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="section-title inline-block">招生与学生培养</h2>
+                <p class="text-gray-600 mt-4 max-w-3xl mx-auto">招生名额充足，就业前景广阔，欢迎咨询报考</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- 招生信息 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 animate-slide-up">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fa fa-graduation-cap text-primary mr-3"></i>
+                        招生信息
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-primary pl-4 py-2">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">博士生招生</h4>
+                            <p class="text-gray-600 mb-3">
+                                团队每年招收5-10名博士生，要求具有动力工程、制冷与低温工程、压缩机、控制工程等相关专业背景，有较强的编程能力和动手能力。
+                            </p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>本科（需具备推免资格）或硕士学历</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>有相关项目背景者优先</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>英语水平良好，通过四六级考试</span>
+                                </li>
+                            </ul>
+                        </div>                        
+                        <div class="border-l-4 border-secondary pl-4 py-2">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">硕士生招生</h4>
+                            <p class="text-gray-600 mb-3">
+                                团队每年招收15-20名硕士生，欢迎动力工程、制冷与低温工程、压缩机、自动化等相关专业的本科毕业生申请。
+                            </p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>本科毕业，成绩优异</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>具有良好的外语水平</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>有相关项目背景者优先</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border-l-4 border-accent pl-4 py-2">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">本科生科研训练</h4>
+                            <p class="text-gray-600 mb-3">
+                                欢迎西安交通大学本科生加入实验室进行短期科研训练，期限为6-24个月。
+                            </p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>需要有学习研究的主观能动性</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>有明确的目标和计划</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <span>可以指导参加大学生创新训练项目或腾飞杯创新创业比赛</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                   
+                </div>                
+                <!-- 学术培养 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 animate-slide-up" style="animation-delay: 0.3s">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fa fa-book text-primary mr-3"></i>
+                        毕业去向
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <div class="bg-primary/10 rounded-lg p-6 text-center">
+                                    <div class="text-4xl font-bold text-primary mb-2">1</div>
+                                    <p class="font-medium">高校科研机构</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <p class="text-gray-600">
+                                    西安交通大学、上海交通大学、东南大学、南京理工大学、河海大学、美国橡树岭国家实验室、普渡大学等。<br>
+                                    已毕业硕士研究生人均发表1.5篇论文，申请3项专利，最高发表4篇论文；已毕业博士研究生人均发表5篇论文，最高发表14篇论文，成果产出丰硕。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <div class="bg-primary/10 rounded-lg p-6 text-center">
+                                    <div class="text-4xl font-bold text-primary mb-2">2</div>
+                                    <p class="font-medium">研究院所</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <p class="text-gray-600">
+                                    航天科技集团有限公司、中国铁路经济规划研究院、中国铁道科学研究院、上海核工程研究设计院、中核战略规划研究总院、上海空间推进研究所、中国汽车技术研究中心有限公司等。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <div class="bg-primary/10 rounded-lg p-6 text-center">
+                                    <div class="text-4xl font-bold text-primary mb-2">3</div>
+                                    <p class="font-medium">知名企业</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <p class="text-gray-600">
+                                    中国第一汽车集团有限公司、中粮科工股份有限公司、中国电子科技有限公司、中国船舶集团有限公司、中国核电工程有限公司、中国广核集团有限公司等央国企。<br>
+                                    华为、理想、博世、中兴、比亚迪、美的、海信、三花、小米等民营企业。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <div class="bg-primary/10 rounded-lg p-6 text-center">
+                                    <div class="text-4xl font-bold text-primary mb-2">4</div>
+                                    <p class="font-medium">其他就业方向</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <p class="text-gray-600">
+                                    选调生、自主创业等。<br>
+                                    团队教师将根据每个学生的背景、兴趣和目标制定个性化培养方案，包括课程学习、科研项目参与和学术交流等方面的规划，从政、产、学、研多个方面培养学生综合能力。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-4">就业去向</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-primary mb-1">23%</div>
+                                <p class="text-gray-600 text-sm">国内外顶尖高校任教</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-primary mb-1">65%</div>
+                                <p class="text-gray-600 text-sm">科技单位研发岗位</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-primary mb-1">12%</div>
+                                <p class="text-gray-600 text-sm">创业或其他领域</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 animate-fade-in">
+                <h2 class="section-title inline-block">联系我们</h2>            
+            </div>            
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">联系方式</h3>
+                        <div class="space-y-2">  
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">邮箱</h4>
+                                    <p class="text-gray-600">szong@xjtu.edu.cn</p>
+                                </div>
+                            </div>                   
+                        </div>               
+            </div>
+        </div>
+    </section>
+    <!--<section id="students" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="section-title inline-block">毕业学生</h2>
+                <p class="text-gray-600 mt-4 max-w-3xl mx-auto">团队已经毕业硕博研究生100余人，他们在各个行业发光发热</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"> -->
+                <!-- 学生卡片1 -->
+              <!--  <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.1s">
+                    <div class="relative h-65 overflow-hidden">
+                        <img src="照片/已毕业学生/任兆龙.jpg" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">任兆龙</h3>
+                                <p class="text-white/80">硕士研究生</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>2022——2025</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            中国广核压缩机技术总工程师。
+                        </p>                     
+                    </div>
+                </div>   -->
+                <!-- 学生卡片2 --> 
+                <!--<div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.1s">
+                    <div class="relative h-65 overflow-hidden">
+                        <img src="照片/已毕业学生/管燕.jpg" alt="学生照片" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-xl font-bold">管燕</h3>
+                                <p class="text-white/80">硕士研究生</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-calendar-o mr-2"></i>
+                            <span>2022——2025</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            维缔技术CTO
+                        </p>                     
+                    </div>
+                </div>     
+                     </div>
+        </div>
+    </section>       -->
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+                            <i class="fa fa-flask text-primary text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">先进CO<sub>2</sub>热力循环与系统研究团队</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">                       
+                    </p>
+
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#professor" class="text-gray-400 hover:text-white transition-colors">导师介绍</a></li>
+                        <li><a href="#research" class="text-gray-400 hover:text-white transition-colors">研究方向</a></li>
+                        <li><a href="#admission" class="text-gray-400 hover:text-white transition-colors">招生信息</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                             
+               
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">西安市碑林区咸宁西路28号西安交通大学</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">szong@xjtu.edu.cn</span>
+                        </li>                       
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 先进CO<sub>2</sub>热力循环与系统研究团队. 保留所有权利.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">隐私政策</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">使用条款</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow-md');
+                navbar.classList.remove('py-3', 'shadow-sm');
+            } else {
+                navbar.classList.add('py-3', 'shadow-sm');
+                navbar.classList.remove('py-2', 'shadow-md');
+            }
+        });
+        
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+        
+        // 数字计数动画
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const suffix = obj.innerText.replace(/[0-9]/g, '');
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerText = Math.floor(progress * (end - start) + start) + suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // 监听元素是否进入视口
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 开始数字动画
+                    animateValue("pub-count", 0, 120, 2000);
+                    animateValue("project-count", 0, 45, 2000);
+                    animateValue("patent-count", 0, 28, 2000);
+                    animateValue("award-count", 0, 15, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // 监听统计数字区域
+        const statsSection = document.querySelector('#research .grid-cols-4');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // 联系表单提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // 模拟表单提交
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> 发送中...';
+            
+            setTimeout(() => {
+                alert('消息已发送成功，我们将尽快回复您！');
+                this.reset();
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
+    
